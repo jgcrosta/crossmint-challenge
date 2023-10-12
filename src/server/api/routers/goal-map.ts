@@ -72,18 +72,15 @@ export const goalMapRouter = createTRPCRouter({
           switch (currentCell.type) {
             case "POLYANET":
               await deletePolyanet(row, column);
-              await delay(1000);
               break;
             case "COMETH":
               await deleteCometh(row, column);
-              await delay(1000);
               break;
             case "SOLOON":
               await deleteSoloon(row, column);
-              await delay(1000);
-            default:
               break;
           }
+          await delay(1000);
         }
       }
     }),
