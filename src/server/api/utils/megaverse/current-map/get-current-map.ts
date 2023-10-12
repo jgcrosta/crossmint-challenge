@@ -9,8 +9,8 @@ import type {
   ComethType,
   CurrentMapSchema,
 } from "./current-map-schema";
-import { handleSoloonColor } from "../../astral-objects/soloons";
-import { handleComethDirection } from "../../astral-objects/cometh";
+import { getSoloonFromColor } from "~/utils/astral-objects/soloons";
+import { getComethFromDirection } from "~/utils/astral-objects/cometh";
 
 const getCellObject = (
   cell: SpaceType | PolyanetType | SoloonType | ComethType,
@@ -28,9 +28,9 @@ const getCellObject = (
           icon: "🪐",
         };
       case 1:
-        return handleSoloonColor(cell.color);
+        return getSoloonFromColor(cell.color);
       case 2:
-        return handleComethDirection(cell.direction);
+        return getComethFromDirection(cell.direction);
       default:
         throw new Error(`Invalid cell type`);
     }

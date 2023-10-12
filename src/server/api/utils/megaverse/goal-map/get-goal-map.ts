@@ -3,8 +3,8 @@ import {
   type GoalMapSchema,
 } from "./goal-map-schema";
 import { type MegaverseMap, type MegaverseObject } from "../megaverse";
-import { handleComethDirection } from "../../astral-objects/cometh";
-import { handleSoloonColor } from "../../astral-objects/soloons";
+import { getSoloonFromColor } from "~/utils/astral-objects/soloons";
+import { getComethFromDirection } from "~/utils/astral-objects/cometh";
 
 const getCellProperties = (cell: MegaverseObjectNames): MegaverseObject => {
   if (cell === "SPACE") {
@@ -21,9 +21,9 @@ const getCellProperties = (cell: MegaverseObjectNames): MegaverseObject => {
     const [objectProperty, objectType] = cell.split("_");
     switch (objectType) {
       case "SOLOON":
-        return handleSoloonColor(objectProperty);
+        return getSoloonFromColor(objectProperty);
       case "COMETH":
-        return handleComethDirection(objectProperty);
+        return getComethFromDirection(objectProperty);
       default:
         throw new Error(`Invalid cell type: ${objectType}`);
     }

@@ -19,6 +19,8 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+    NEXT_PUBLIC_CANDIDATE_ID: z.string(),
+    NEXT_PUBLIC_CROSSMINT_API_URL: z.string(),
   },
 
   /**
@@ -29,7 +31,8 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     CANDIDATE_ID: process.env.CANDIDATE_ID,
     CROSSMINT_API_URL: process.env.CROSSMINT_API_URL,
-    // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+    NEXT_PUBLIC_CANDIDATE_ID: process.env.NEXT_PUBLIC_CANDIDATE_ID,
+    NEXT_PUBLIC_CROSSMINT_API_URL: process.env.NEXT_PUBLIC_CROSSMINT_API_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.

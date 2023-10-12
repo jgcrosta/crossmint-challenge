@@ -1,7 +1,7 @@
 import axios from "axios";
 import { env } from "~/env.mjs";
-import { type ComethType } from "../megaverse/current-map/current-map-schema";
-import { type MegaverseObject } from "../megaverse/megaverse";
+import { type ComethType } from "~/server/api/utils/megaverse/current-map/current-map-schema";
+import { type MegaverseObject } from "~/server/api/utils/megaverse/megaverse";
 
 // Api
 export const addCometh = async (
@@ -9,8 +9,8 @@ export const addCometh = async (
   column: number,
   direction: ComethType["direction"],
 ) => {
-  const candidateId = env.CANDIDATE_ID;
-  const url = `${env.CROSSMINT_API_URL}comeths`;
+  const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}comeths`;
   const data = {
     candidateId,
     row,
@@ -22,8 +22,8 @@ export const addCometh = async (
 };
 
 export const deleteCometh = async (row: number, column: number) => {
-  const candidateId = env.CANDIDATE_ID;
-  const url = `${env.CROSSMINT_API_URL}comeths`;
+  const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}comeths`;
   const data = {
     candidateId,
     row,
@@ -46,7 +46,7 @@ export function isComethDirection(
   return validDirections.includes(value as ComethType["direction"]);
 }
 
-export const handleComethDirection = (
+export const getComethFromDirection = (
   objectProperty: string | undefined,
 ): MegaverseObject => {
   switch (objectProperty) {

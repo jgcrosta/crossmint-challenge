@@ -5,23 +5,26 @@ import Head from "next/head";
 import { env } from "~/env.mjs";
 import { getGoalMap } from "~/server/api/utils/megaverse/goal-map/get-goal-map";
 import { getCurrentMap } from "~/server/api/utils/megaverse/current-map/get-current-map";
-import { api } from "~/server/api/utils/api";
-import { useRouter } from "next/router";
 import { mapDiff } from "~/utils/map-diff";
 import { useToast } from "~/components/ui/use-toast";
 import { fetchCurrentMap } from "~/server/api/utils/megaverse/current-map/current-map-api";
 import { fetchGoalMap } from "~/server/api/utils/megaverse/goal-map/goal-map-api";
 import { LoadingButton } from "~/components/loading-button";
 import { Megaverse } from "~/components/megaverse";
+import { useState } from "react";
+import { clearMegaverseMap, matchMegaverseMap } from "~/utils/map-match";
+import { Progress } from "~/components/ui/progress";
 
 type ToastVariant = "default" | "success" | "destructive";
+type MegaverseState = "matching" | "clearing" | "idle";
 
 const Home: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ currentMap, goalMap }) => {
-  const router = useRouter();
-
-  const megaverseDiff = mapDiff({ currentMap, goalMap });
+  const [megaverseState, setMegaverseState] = useState<MegaverseState>("idle");
+  const [currentMegaverseMap, setCurrentMap] = useState(currentMap);
+  const initialDiff = mapDiff({ currentMap, goalMap });
+  const currentDiff = mapDiff({ currentMap: currentMegaverseMap, goalMap });
 
   const { toast } = useToast();
 
@@ -37,41 +40,37 @@ const Home: NextPage<
     });
   };
 
-  const { mutate: matchMutate, isLoading: isMatchLoading } =
-    api.goalMap.match.useMutation({
-      onError: (error) => {
-        showToast(error.message, "destructive");
-      },
-      onSuccess: () => {
-        router.reload();
-        showToast("The megaverse has been matched!", "success");
-      },
-      onMutate: () => {
-        showToast("Mapping megaverse, go grab a coffee!", "default");
-      },
-    });
-
-  const { mutate: clearMutate, isLoading: isClearLoading } =
-    api.goalMap.clear.useMutation({
-      onError: (error) => {
-        showToast(error.message, "destructive");
-      },
-      onSuccess: () => {
-        router.reload();
-        showToast("The megaverse has been cleared!", "success");
-      },
-      onMutate: () => {
-        showToast("Clearing megaverse, go grab a coffee!", "default");
-      },
-    });
-
   const isMatchBtnDisabled =
-    megaverseDiff.length === 0 || isMatchLoading || isClearLoading;
-
+    megaverseState !== "idle" || currentDiff.length === 0;
   const isClearBtnDisabled =
-    isClearLoading ||
-    isMatchLoading ||
-    currentMap.every((item) => item.every((item) => item.type === "SPACE"));
+    megaverseState !== "idle" ||
+    currentMegaverseMap.every((row) =>
+      row.every((cell) => cell.type === "SPACE"),
+    );
+
+  const matchMap = async () => {
+    try {
+      setMegaverseState("matching");
+      showToast("Mapping megaverse, go grab a coffee!", "default");
+      await matchMegaverseMap(currentDiff, setCurrentMap);
+      setMegaverseState("idle");
+      showToast("The megaverse has been matched!", "success");
+    } catch {
+      showToast("An error occured while matching the megaverse", "destructive");
+    }
+  };
+
+  const clearMap = async () => {
+    try {
+      setMegaverseState("clearing");
+      showToast("Clearing megaverse, go grab a coffee!", "default");
+      await clearMegaverseMap(currentMap, setCurrentMap);
+      setMegaverseState("idle");
+      showToast("The megaverse has been cleared!", "success");
+    } catch {
+      showToast("An error occured while clearing the megaverse", "destructive");
+    }
+  };
 
   return (
     <>
@@ -86,25 +85,37 @@ const Home: NextPage<
         </nav>
         <div className="mt-8 flex justify-center gap-x-32">
           <Megaverse title="Goal map" map={goalMap} />
-          <Megaverse title="Current map" map={currentMap} />
+          <Megaverse title="Current map" map={currentMegaverseMap} />
         </div>
 
-        <div className="flex justify-center">
-          <div className="mt-20 flex gap-x-4">
+        <div className="flex flex-col">
+          <div className="mt-10 flex justify-center gap-x-4">
             <LoadingButton
-              isLoading={isClearLoading}
-              onClick={() => clearMutate({ currentMap })}
+              isLoading={megaverseState === "clearing"}
+              onClick={() => {
+                void clearMap();
+              }}
               isDisabled={isClearBtnDisabled}
             >
               Clear map
             </LoadingButton>
             <LoadingButton
-              isLoading={isMatchLoading}
+              isLoading={megaverseState === "matching"}
               isDisabled={isMatchBtnDisabled}
-              onClick={() => matchMutate(megaverseDiff)}
+              onClick={() => {
+                void matchMap();
+              }}
             >
-              Match map - {megaverseDiff.length} steps
+              Match map - {currentDiff.length} steps
             </LoadingButton>
+          </div>
+          <div className="mt-10 flex items-center justify-center">
+            {megaverseState === "matching" && (
+              <Progress
+                value={100 - (currentDiff.length * 100) / initialDiff.length}
+                className="w-96"
+              />
+            )}
           </div>
         </div>
       </main>

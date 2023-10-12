@@ -3,8 +3,8 @@ import { env } from "~/env.mjs";
 
 // Api
 export const addPolyanet = async (row: number, column: number) => {
-  const candidateId = env.CANDIDATE_ID;
-  const url = `${env.CROSSMINT_API_URL}polyanets`;
+  const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}polyanets`;
   const data = {
     candidateId,
     column,
@@ -15,8 +15,8 @@ export const addPolyanet = async (row: number, column: number) => {
 };
 
 export const deletePolyanet = async (row: number, column: number) => {
-  const candidateId = env.CANDIDATE_ID;
-  const url = `${env.CROSSMINT_API_URL}polyanets`;
+  const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}polyanets`;
   const data = {
     candidateId,
     column,

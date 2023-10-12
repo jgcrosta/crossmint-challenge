@@ -1,7 +1,7 @@
 import axios from "axios";
 import { env } from "~/env.mjs";
-import { type SoloonType } from "../megaverse/current-map/current-map-schema";
-import { type MegaverseObject } from "../megaverse/megaverse";
+import { type SoloonType } from "~/server/api/utils/megaverse/current-map/current-map-schema";
+import { type MegaverseObject } from "~/server/api/utils/megaverse/megaverse";
 
 // Api
 export const addSoloon = async (
@@ -9,8 +9,8 @@ export const addSoloon = async (
   column: number,
   color: SoloonType["color"],
 ) => {
-  const candidateId = env.CANDIDATE_ID;
-  const url = `${env.CROSSMINT_API_URL}soloons`;
+  const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}soloons`;
   const data = {
     candidateId,
     row,
@@ -22,8 +22,8 @@ export const addSoloon = async (
 };
 
 export const deleteSoloon = async (row: number, column: number) => {
-  const candidateId = env.CANDIDATE_ID;
-  const url = `${env.CROSSMINT_API_URL}soloons`;
+  const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}soloons`;
   const data = {
     candidateId,
     row,
@@ -39,7 +39,7 @@ export function isSoloonColor(value: string): value is SoloonType["color"] {
   return validColors.includes(value as SoloonType["color"]);
 }
 
-export const handleSoloonColor = (
+export const getSoloonFromColor = (
   objectProperty: string | undefined,
 ): MegaverseObject => {
   switch (objectProperty) {
