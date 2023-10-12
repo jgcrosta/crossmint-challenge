@@ -2,7 +2,7 @@
 
 ## 🌌 Overview
 
-This repository houses the solution to the Crossmint Megaverse Mapping Challenge. The challenge revolves around a 2D representation known as the Crossmint Megaverse map, which is populated by elements such as spaces, polyanets, soloons, and comeths.
+This repository houses the solution to the Crossmint Megaverse Mapping Challenge. The challenge revolves around a 2D representation known as the Crossmint Megaverse map, which is populated by elements such as spaces, polyanets, soloons, and comeths. The application has been deployed with Vercel and is accessible [here](https://crossmint-challenge-jgc.vercel.app).
 
 ## 🛠 Technology Stack
 
