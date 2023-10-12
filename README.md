@@ -8,7 +8,7 @@ This repository houses the solution to the Crossmint Megaverse Mapping Challenge
 
 - Typescript: A strongly typed superset of JavaScript.
 - Node.js: The runtime environment for executing JavaScript server-side.
-- Next.js: A React framework for building user interfaces.
+- Next.js: A React framework for building full-stack web applications.
 
 ## 🚀 Getting Started
 
