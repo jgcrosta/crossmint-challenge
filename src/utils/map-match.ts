@@ -53,20 +53,20 @@ export const matchMegaverseMap = async (
     const { row, column, object } = element;
 
     let modifiedObject: MegaverseObject = {
-      type: "POLYANET",
+      type: "polyanet",
       icon: "🪐",
     };
 
     // Handle different object types and their respective utilities
-    if (object === "POLYANET") {
+    if (object === "polyanet") {
       await addPolyanet(row, column);
     } else {
       const [objectProperty, objectType] = object.split("_");
       if (!objectProperty || !objectType) continue;
-      if (objectType === "SOLOON" && isSoloonColor(objectProperty)) {
+      if (objectType === "soloon" && isSoloonColor(objectProperty)) {
         await addSoloon(row, column, objectProperty);
         modifiedObject = getSoloonFromColor(objectProperty);
-      } else if (objectType === "COMETH" && isComethDirection(objectProperty)) {
+      } else if (objectType === "cometh" && isComethDirection(objectProperty)) {
         await addCometh(row, column, objectProperty);
         modifiedObject = getComethFromDirection(objectProperty);
       }
@@ -89,24 +89,24 @@ export const clearMegaverseMap = async (
 
     for (let column = 0; column < currentRow.length; column++) {
       const currentCell = currentRow[column];
-      if (!currentCell || currentCell.type === "SPACE") continue;
+      if (!currentCell || currentCell.type === "space") continue;
 
       // Handle deletion of different object types
       switch (currentCell.type) {
-        case "POLYANET":
+        case "polyanet":
           await deletePolyanet(row, column);
           break;
-        case "COMETH":
+        case "cometh":
           await deleteCometh(row, column);
           break;
-        case "SOLOON":
+        case "soloon":
           await deleteSoloon(row, column);
           break;
       }
 
       // Update the map to reflect the removed object
       const modifiedObject: MegaverseObject = {
-        type: "SPACE",
+        type: "space",
         icon: "🌌",
       };
       setCurrentMap((prev) => updateMapCell(prev, row, column, modifiedObject));

@@ -7,7 +7,7 @@ import type {
 export interface MegaverseDiff {
   row: number;
   column: number;
-  object: MegaverseObjectNames;
+  object: Lowercase<MegaverseObjectNames>;
 }
 
 export const mapDiff = ({
@@ -49,24 +49,24 @@ const getCellDiff = (
   column: number,
   goalCell: MegaverseObject,
 ): MegaverseDiff => {
-  if (goalCell.type === "SPACE" || goalCell.type === "POLYANET") {
+  if (goalCell.type === "space" || goalCell.type === "polyanet") {
     return {
       row,
       column,
       object: goalCell.type,
     };
-  } else if (goalCell.type === "SOLOON") {
+  } else if (goalCell.type === "soloon") {
     return {
       row,
       column,
-      object: `${goalCell.color}_SOLOON`,
+      object: `${goalCell.color}_soloon`,
     };
   } else {
     // We are sure that the type is COMETH
     return {
       row,
       column,
-      object: `${goalCell.direction}_COMETH`,
+      object: `${goalCell.direction}_cometh`,
     };
   }
 };

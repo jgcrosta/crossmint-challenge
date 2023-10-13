@@ -17,36 +17,36 @@ export type MegaverseIcons = z.infer<typeof MegaverseIcons>;
 
 // Megaverse objects
 export const Space = z.object({
-  type: z.literal("SPACE"),
+  type: z.literal("space"),
   icon: MegaverseIcons,
 });
 export type Space = z.infer<typeof Space>;
 
 export const Polyanet = z.object({
-  type: z.literal("POLYANET"),
+  type: z.literal("polyanet"),
   icon: MegaverseIcons,
 });
 export type Polyanet = z.infer<typeof Polyanet>;
 
 export const Soloon = z.object({
-  type: z.literal("SOLOON"),
+  type: z.literal("soloon"),
   color: z.union([
-    z.literal("WHITE"),
-    z.literal("BLUE"),
-    z.literal("RED"),
-    z.literal("PURPLE"),
+    z.literal("white"),
+    z.literal("blue"),
+    z.literal("red"),
+    z.literal("purple"),
   ]),
   icon: MegaverseIcons,
 });
 export type Soloon = z.infer<typeof Soloon>;
 
 export const Cometh = z.object({
-  type: z.literal("COMETH"),
+  type: z.literal("cometh"),
   direction: z.union([
-    z.literal("UP"),
-    z.literal("DOWN"),
-    z.literal("LEFT"),
-    z.literal("RIGHT"),
+    z.literal("up"),
+    z.literal("down"),
+    z.literal("left"),
+    z.literal("right"),
   ]),
   icon: MegaverseIcons,
 });

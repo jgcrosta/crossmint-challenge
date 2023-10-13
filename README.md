@@ -40,4 +40,3 @@ pnpm start
 ## 🔧 Future Work & Improvements
 
 Error Handling: An immediate enhancement would be the robust handling of errors from the Crossmint API. Given its restriction on the number of requests (returning error 429), implementing a mechanism to manage and inform users of these limitations would enhance the user experience.
-

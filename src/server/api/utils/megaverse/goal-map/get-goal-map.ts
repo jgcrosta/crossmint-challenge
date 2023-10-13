@@ -9,21 +9,21 @@ import { getComethFromDirection } from "~/utils/astral-objects/cometh";
 const getCellProperties = (cell: MegaverseObjectNames): MegaverseObject => {
   if (cell === "SPACE") {
     return {
-      type: cell,
+      type: "space",
       icon: "🌌",
     };
   } else if (cell === "POLYANET") {
     return {
-      type: cell,
+      type: "polyanet",
       icon: "🪐",
     };
   } else {
     const [objectProperty, objectType] = cell.split("_");
     switch (objectType) {
       case "SOLOON":
-        return getSoloonFromColor(objectProperty);
+        return getSoloonFromColor(objectProperty?.toLowerCase());
       case "COMETH":
-        return getComethFromDirection(objectProperty);
+        return getComethFromDirection(objectProperty?.toLowerCase());
       default:
         throw new Error(`Invalid cell type: ${objectType}`);
     }

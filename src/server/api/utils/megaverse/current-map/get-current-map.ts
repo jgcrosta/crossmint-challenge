@@ -17,14 +17,14 @@ const getCellObject = (
 ): MegaverseObject => {
   if (!cell) {
     return {
-      type: "SPACE",
+      type: "space",
       icon: "🌌",
     };
   } else {
     switch (cell.type) {
       case 0:
         return {
-          type: "POLYANET",
+          type: "polyanet",
           icon: "🪐",
         };
       case 1:

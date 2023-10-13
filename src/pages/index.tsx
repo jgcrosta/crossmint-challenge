@@ -45,7 +45,7 @@ const Home: NextPage<
   const isClearBtnDisabled =
     megaverseState !== "idle" ||
     currentMegaverseMap.every((row) =>
-      row.every((cell) => cell.type === "SPACE"),
+      row.every((cell) => cell.type === "space"),
     );
 
   const matchMap = async () => {

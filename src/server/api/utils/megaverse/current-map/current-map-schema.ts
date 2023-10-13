@@ -13,14 +13,14 @@ export type PolyanetType = z.infer<typeof PolyanetType>;
 // Soloon object
 export const SoloonType = z.object({
   type: z.literal(1),
-  color: z.enum(["BLUE", "RED", "PURPLE", "WHITE"]),
+  color: z.enum(["blue", "red", "purple", "white"]),
 });
 export type SoloonType = z.infer<typeof SoloonType>;
 
 // Cometh object
 export const ComethType = z.object({
   type: z.literal(2),
-  direction: z.enum(["UP", "DOWN", "LEFT", "RIGHT"]),
+  direction: z.enum(["up", "down", "left", "right"]),
 });
 export type ComethType = z.infer<typeof ComethType>;
 

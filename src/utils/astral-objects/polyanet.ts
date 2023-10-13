@@ -4,19 +4,17 @@ import { env } from "~/env.mjs";
 // Api
 export const addPolyanet = async (row: number, column: number) => {
   const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
-  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}polyanets`;
-  const data = {
-    candidateId,
-    column,
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}/polyanets`;
+  await axios.post(url, {
     row,
-  };
-
-  await axios.post(url, data);
+    column,
+    candidateId,
+  });
 };
 
 export const deletePolyanet = async (row: number, column: number) => {
   const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
-  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}polyanets`;
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}/polyanets`;
   const data = {
     candidateId,
     column,

@@ -10,20 +10,19 @@ export const addCometh = async (
   direction: ComethType["direction"],
 ) => {
   const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
-  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}comeths`;
-  const data = {
-    candidateId,
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}/comeths`;
+
+  await axios.post(url, {
     row,
     column,
     direction,
-  };
-
-  await axios.post(url, data);
+    candidateId,
+  });
 };
 
 export const deleteCometh = async (row: number, column: number) => {
   const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
-  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}comeths`;
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}/comeths`;
   const data = {
     candidateId,
     row,
@@ -38,10 +37,10 @@ export function isComethDirection(
   value: string,
 ): value is ComethType["direction"] {
   const validDirections: ComethType["direction"][] = [
-    "UP",
-    "DOWN",
-    "LEFT",
-    "RIGHT",
+    "up",
+    "down",
+    "left",
+    "right",
   ];
   return validDirections.includes(value as ComethType["direction"]);
 }
@@ -50,28 +49,28 @@ export const getComethFromDirection = (
   objectProperty: string | undefined,
 ): MegaverseObject => {
   switch (objectProperty) {
-    case "UP":
+    case "up":
       return {
-        type: "COMETH",
-        direction: "UP",
+        type: "cometh",
+        direction: "up",
         icon: "⬆️",
       };
-    case "DOWN":
+    case "down":
       return {
-        type: "COMETH",
-        direction: "DOWN",
+        type: "cometh",
+        direction: "down",
         icon: "⬇️",
       };
-    case "LEFT":
+    case "left":
       return {
-        type: "COMETH",
-        direction: "LEFT",
+        type: "cometh",
+        direction: "left",
         icon: "⬅️",
       };
-    case "RIGHT":
+    case "right":
       return {
-        type: "COMETH",
-        direction: "RIGHT",
+        type: "cometh",
+        direction: "right",
         icon: "➡️",
       };
     default:

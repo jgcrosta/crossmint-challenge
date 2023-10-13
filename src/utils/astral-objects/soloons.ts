@@ -10,20 +10,18 @@ export const addSoloon = async (
   color: SoloonType["color"],
 ) => {
   const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
-  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}soloons`;
-  const data = {
-    candidateId,
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}/soloons`;
+  await axios.post(url, {
     row,
     column,
     color,
-  };
-
-  await axios.post(url, data);
+    candidateId,
+  });
 };
 
 export const deleteSoloon = async (row: number, column: number) => {
   const candidateId = env.NEXT_PUBLIC_CANDIDATE_ID;
-  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}soloons`;
+  const url = `${env.NEXT_PUBLIC_CROSSMINT_API_URL}/soloons`;
   const data = {
     candidateId,
     row,
@@ -35,7 +33,7 @@ export const deleteSoloon = async (row: number, column: number) => {
 
 // Helpers
 export function isSoloonColor(value: string): value is SoloonType["color"] {
-  const validColors: SoloonType["color"][] = ["BLUE", "RED", "PURPLE", "WHITE"];
+  const validColors: SoloonType["color"][] = ["blue", "red", "purple", "white"];
   return validColors.includes(value as SoloonType["color"]);
 }
 
@@ -43,28 +41,28 @@ export const getSoloonFromColor = (
   objectProperty: string | undefined,
 ): MegaverseObject => {
   switch (objectProperty) {
-    case "BLUE":
+    case "blue":
       return {
-        type: "SOLOON",
-        color: "BLUE",
+        type: "soloon",
+        color: "blue",
         icon: "🔵",
       };
-    case "WHITE":
+    case "white":
       return {
-        type: "SOLOON",
-        color: "WHITE",
+        type: "soloon",
+        color: "white",
         icon: "⚪",
       };
-    case "RED":
+    case "red":
       return {
-        type: "SOLOON",
-        color: "RED",
+        type: "soloon",
+        color: "red",
         icon: "🔴",
       };
-    case "PURPLE":
+    case "purple":
       return {
-        type: "SOLOON",
-        color: "PURPLE",
+        type: "soloon",
+        color: "purple",
         icon: "🟣",
       };
     default:
