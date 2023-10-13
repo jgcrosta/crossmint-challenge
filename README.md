@@ -21,14 +21,16 @@ git clone <repository>
 cd crossmint-challenge
 ```
 
-2. Install the dependencies and launch the server
+2. Copy the `.env.example` file into `.env`
+
+3. Install the dependencies and launch the server
 
 ```bash
 pnpm install
 pnpm start
 ```
 
-3. Access in browser
+4. Access in browser
    Open your browser and head over to the server address, typically found at http://localhost:3000.
 
 ## 🎮 Features & Functionality
